@@ -11,6 +11,7 @@ public class InvestmentTest {
     assertTrue(result > 1000, "Il rendimento dovrebbe essere positivo");
   }
 
+  // first prova
   @Test
   public void testPaymentNegative() {
     Investment investment =
