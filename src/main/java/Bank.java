@@ -35,7 +35,8 @@ public class Bank {
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Day: " + day);
-    System.out.println("Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
+    System.out.println(
+        "Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
 
     char answer = scanner.next().charAt(0);
 
@@ -77,10 +78,21 @@ public class Bank {
     try (PrintWriter writer = new PrintWriter(new FileWriter(nomeFile))) {
       for (Account account : accountUserList) {
         User user = account.getUser();
-        writer.println(user.getPersonalCodeUser() + "," + user.getUsername() + "," + account.getUsername() + "," + account.getPassword());
+        writer.println(
+            user.getPersonalCodeUser()
+                + ","
+                + user.getUsername()
+                + ","
+                + account.getUsername()
+                + ","
+                + account.getPassword());
         for (BankAccount bankAccount : accountList) {
           if (bankAccount.getPersonalCodeBank().equals(user.getPersonalCodeUser())) {
-            writer.println("Account," + bankAccount.getPersonalCodeBank() + "," + bankAccount.getPersonalBalance());
+            writer.println(
+                "Account,"
+                    + bankAccount.getPersonalCodeBank()
+                    + ","
+                    + bankAccount.getPersonalBalance());
             for (Transaction transaction : bankAccount.getTransactionHistory()) {
               writer.println("Transaction," + transaction.toString());
             }
@@ -104,7 +116,10 @@ public class Bank {
       User currentUser = null;
       while ((line = reader.readLine()) != null) {
         String[] parts = line.split(",");
-        if (parts.length >= 4 && !parts[0].equals("Account") && !parts[0].equals("Transaction") && !parts[0].equals("Investment")) {
+        if (parts.length >= 4
+            && !parts[0].equals("Account")
+            && !parts[0].equals("Transaction")
+            && !parts[0].equals("Investment")) {
           String personalCode = parts[0];
           String usernameUser = parts[1];
           String usernameAccount = parts[2];
