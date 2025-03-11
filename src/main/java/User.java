@@ -1,7 +1,6 @@
-import java.io.Serializable;
 import java.util.Scanner;
 
-public class User implements Serializable {
+public class User {
   private final String personalCodeUser;
   private double personalWallet;
   private final String username;

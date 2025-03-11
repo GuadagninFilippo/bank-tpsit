@@ -1,7 +1,7 @@
-import java.io.Serializable;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
-public class Transaction implements Serializable {
+public class Transaction {
   private Date date;
   private double amount;
   private String type;
@@ -32,13 +32,7 @@ public class Transaction implements Serializable {
 
   @Override
   public String toString() {
-    return "Date: "
-        + date
-        + ", Amount: "
-        + amount
-        + ", Type: "
-        + type
-        + ", Description: "
-        + description;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    return formatter.format(date) + "," + amount + "," + type + "," + description;
   }
 }

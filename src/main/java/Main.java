@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
-    Bank sanPaolo = Bank.uploadData("sanpaolo.ser");
+    Bank sanPaolo = Bank.uploadData("sanpaolo.txt");
     if (sanPaolo == null) {
       sanPaolo = new Bank();
       // Crea alcuni account di prova se non ci sono dati salvati
@@ -14,7 +14,7 @@ public class Main {
       sanPaolo.createAccountList(new BankAccount("002", "user2"));
     }
 
-    Bank generali = Bank.uploadData("generali.ser");
+    Bank generali = Bank.uploadData("generali.txt");
     if (generali == null) {
       generali = new Bank();
       generali.registerUser("user3", "password789", new User("003", "user3"));
@@ -103,8 +103,8 @@ public class Main {
 
           case 3:
             System.out.println("program closure!");
-            sanPaolo.saveData("sanpaolo.ser");
-            generali.saveData("generali.ser");
+            sanPaolo.saveData("sanpaolo.txt");
+            generali.saveData("generali.txt");
             scanner.close();
             return;
 
