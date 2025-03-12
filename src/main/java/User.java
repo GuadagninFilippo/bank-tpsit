@@ -7,7 +7,7 @@ public class User {
 
   public User(String pcu, String username) {
     this.personalCodeUser = pcu;
-    this.personalWallet = 100;
+    this.personalWallet = 100.00;
     this.username = username;
   }
 

@@ -7,18 +7,11 @@ public class Main {
     Bank sanPaolo = Bank.uploadData("sanpaolo.txt");
     if (sanPaolo == null) {
       sanPaolo = new Bank();
-      // Crea alcuni account di prova se non ci sono dati salvati
-      sanPaolo.registerUser("user1", "password123", new User("001", "user1"));
-      sanPaolo.createAccountList(new BankAccount("001", "user1"));
-      sanPaolo.registerUser("user2", "password456", new User("002", "user2"));
-      sanPaolo.createAccountList(new BankAccount("002", "user2"));
     }
 
     Bank generali = Bank.uploadData("generali.txt");
     if (generali == null) {
       generali = new Bank();
-      generali.registerUser("user3", "password789", new User("003", "user3"));
-      generali.createAccountList(new BankAccount("003", "user3"));
     }
 
     System.out.println(" ************BANK ACCOUNT************ ");
