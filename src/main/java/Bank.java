@@ -1,4 +1,6 @@
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -114,6 +116,9 @@ public class Bank {
     try (BufferedReader reader = new BufferedReader(new FileReader(nomeFile))) {
       String line;
       User currentUser = null;
+      SimpleDateFormat formatter =
+          new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); // Formato della data
+
       while ((line = reader.readLine()) != null) {
         String[] parts = line.split(",");
         if (parts.length >= 4
@@ -128,22 +133,30 @@ public class Bank {
           bank.registerUser(usernameAccount, password, user);
           currentUser = user;
         } else if (parts.length >= 3 && parts[0].equals("Account")) {
-          String personalCode = parts[1];
-          double personalBalance = Double.parseDouble(parts[2]);
-          BankAccount bankAccount = new BankAccount(personalCode, currentUser.getUsername());
-          bankAccount.setPersonalBalance(personalBalance);
-          bank.accountList.add(bankAccount);
+          if (currentUser != null) {
+            String personalCode = parts[1];
+            double personalBalance = Double.parseDouble(parts[2]);
+            BankAccount bankAccount = new BankAccount(personalCode, currentUser.getUsername());
+            bankAccount.setPersonalBalance(personalBalance);
+            bank.accountList.add(bankAccount);
+          } else {
+            System.err.println("Errore: Riga 'Account' trovata prima di un utente valido.");
+          }
         } else if (parts.length >= 4 && parts[0].equals("Transaction")) {
-          Date date = new Date(Long.parseLong(parts[1]));
-          double amount = Double.parseDouble(parts[2]);
-          String type = parts[3];
-          String description = parts[4];
-          Transaction transaction = new Transaction(date, amount, type, description);
-          for (BankAccount account : bank.accountList) {
-            if (account.getPersonalCodeBank().equals(currentUser.getPersonalCodeUser())) {
-              account.getTransactionHistory().add(transaction);
-              break;
+          try {
+            Date date = formatter.parse(parts[1]); // Analizza la stringa di data
+            double amount = Double.parseDouble(parts[2]);
+            String type = parts[3];
+            String description = parts[4];
+            Transaction transaction = new Transaction(date, amount, type, description);
+            for (BankAccount account : bank.accountList) {
+              if (account.getPersonalCodeBank().equals(currentUser.getPersonalCodeUser())) {
+                account.getTransactionHistory().add(transaction);
+                break;
+              }
             }
+          } catch (ParseException e) {
+            System.err.println("Errore durante l'analisi della data: " + e.getMessage());
           }
         } else if (parts.length >= 3 && parts[0].equals("Investment")) {
           double qInvest = Double.parseDouble(parts[1]);
@@ -158,7 +171,7 @@ public class Bank {
           }
         }
       }
-      System.out.println("Data uploaded successfully.");
+      System.out.println("Dati caricati con successo.");
       return bank;
     } catch (IOException e) {
       System.err.println("Error loading data:" + e.getMessage());
