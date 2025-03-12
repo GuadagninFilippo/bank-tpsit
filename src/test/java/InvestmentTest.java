@@ -1,12 +1,12 @@
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class InvestmentTest {
 
   @Test
   public void testPaymentPositive() {
     Investment investment =
-        new Investment(1000, 0, 0); // Investimento a basso rischio e breve termine
+        new Investment(1000, 0, 0); // investimento a basso rischio e breve termine
     double result = investment.payment();
     assertTrue(result > 1000, "Il rendimento dovrebbe essere positivo");
   }

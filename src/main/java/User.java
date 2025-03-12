@@ -15,6 +15,10 @@ public class User {
     return personalCodeUser;
   }
 
+  public double getPersonalWallet() {
+    return personalWallet;
+  }
+
   public String getUsername() {
     return username;
   }

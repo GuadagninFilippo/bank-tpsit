@@ -1,5 +1,5 @@
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Transaction {
   private Date date;
