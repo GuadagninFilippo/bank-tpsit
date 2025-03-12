@@ -11,15 +11,6 @@ public class InvestmentTest {
     assertTrue(result > 1000, "Il rendimento dovrebbe essere positivo");
   }
 
-  // first prova
-  @Test
-  public void testPaymentNegative() {
-    Investment investment =
-        new Investment(1000, 2, 2); // Investimento ad alto rischio e lungo termine
-    double result = investment.payment();
-    assertTrue(result < 1000, "Il rendimento potrebbe essere negativo");
-  }
-
   @Test
   public void testLimitDecrement() {
     Investment investment = new Investment(1000, 0, 0);

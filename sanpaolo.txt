@@ -1,4 +1,0 @@
-001,user1,user1,password123
-Account,001,0.0
-002,user2,user2,password456
-Account,002,0.0
