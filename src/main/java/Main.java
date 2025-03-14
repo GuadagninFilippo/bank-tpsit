@@ -179,21 +179,48 @@ public class Main {
   }
 
   private static void createInvestiment(Scanner scanner, Bank selectedBank, User user) {
-    System.out.println("Enter the investment amount: ");
-    double importo = scanner.nextDouble();
-    System.out.println(
-        "Enter the investment term (0 = 12 months, 1 = 60 months, 2 = 120 months): ");
-    int durata = scanner.nextInt();
-    System.out.println("Enter your investment risk (0 = low, 1 = medium, 2 = high): ");
-    int rischio = scanner.nextInt();
+    try {
+      System.out.println("Enter the investment amount: ");
+      double importo = scanner.nextDouble();
 
-    Investment investimento = new Investment(importo, durata, rischio);
-
-    for (BankAccount account : selectedBank.getAccountList()) {
-      if (account.getPersonalCodeBank().equals(user.getPersonalCodeUser())) {
-        account.createInvestmentList(investimento);
-        break;
+      if (importo <= 0) {
+        System.out.println("Invalid investment amount. Please enter a positive value.");
+        return;
       }
+
+      System.out.println(
+          "Enter the investment term (0 = 12 months, 1 = 60 months, 2 = 120 months): ");
+      int durata = scanner.nextInt();
+      scanner.nextLine();
+
+      if (durata < 0 || durata > 2) {
+        System.out.println("Invalid investment term. Please enter 0, 1, or 2.");
+        return;
+      }
+
+      System.out.println("Enter your investment risk (0 = low, 1 = medium, 2 = high): ");
+      int rischio = scanner.nextInt();
+      scanner.nextLine();
+
+      if (rischio < 0 || rischio > 2) {
+        System.out.println("Invalid investment risk. Please enter 0, 1, or 2.");
+        return;
+      }
+
+      Investment investimento = new Investment(importo, durata, rischio);
+
+      for (BankAccount account : selectedBank.getAccountList()) {
+        if (account.getPersonalCodeBank().equals(user.getPersonalCodeUser())) {
+          account.createInvestmentList(investimento);
+          System.out.println("Investment created successfully.");
+          return;
+        }
+      }
+      System.out.println("Account not found for the user.");
+
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input. Please enter a numeric value.");
+      scanner.nextLine(); // Consuma l'input errato e la newline
     }
   }
 

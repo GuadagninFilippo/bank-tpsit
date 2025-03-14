@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class User {
   private final String personalCodeUser;
@@ -30,17 +31,24 @@ public class User {
       System.out.println("Your wallet: " + personalWallet);
       System.out.println("How much money do you want to deposit?");
 
-      double money = scanner.nextDouble();
+      try {
+        double money = scanner.nextDouble();
 
-      if (money > personalWallet) {
-        System.out.println("You have less money in your wallet");
-      } else {
-        for (BankAccount account : b.getAccountList()) {
-          if (account.getPersonalCodeBank().equals(personalCodeUser)) {
-            personalWallet -= money;
-            account.deposit(money);
+        if (money <= 0) {
+          System.out.println("Invalid amount. Please enter a positive value.");
+        } else if (money > personalWallet) {
+          System.out.println("You have less money in your wallet");
+        } else {
+          for (BankAccount account : b.getAccountList()) {
+            if (account.getPersonalCodeBank().equals(personalCodeUser)) {
+              personalWallet -= money;
+              account.deposit(money);
+            }
           }
         }
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input. Please enter a numeric value.");
+        scanner.next(); // Pulisce l'input errato dallo scanner
       }
     }
   }
@@ -60,13 +68,21 @@ public class User {
       if (userAccount != null) {
         System.out.println("In your bank account: " + userAccount.getPersonalBalance());
         System.out.println("How much money do you want to withdraw?");
-        double money = scanner.nextDouble();
 
-        if (money > userAccount.getPersonalBalance()) {
-          System.out.println("You have less money in your personal balance");
-        } else {
-          personalWallet += money;
-          userAccount.withdraw(money);
+        try {
+          double money = scanner.nextDouble();
+
+          if (money <= 0) {
+            System.out.println("Invalid amount. Please enter a positive value.");
+          } else if (money > userAccount.getPersonalBalance()) {
+            System.out.println("You have less money in your personal balance");
+          } else {
+            personalWallet += money;
+            userAccount.withdraw(money);
+          }
+        } catch (InputMismatchException e) {
+          System.out.println("Invalid input. Please enter a numeric value.");
+          scanner.next(); // Pulisce l'input errato dallo scanner
         }
       }
     }

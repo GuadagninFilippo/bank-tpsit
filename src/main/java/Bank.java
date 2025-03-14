@@ -40,26 +40,34 @@ public class Bank {
     System.out.println(
         "Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
 
-    char answer = scanner.next().charAt(0);
+    String answer;
+    while (true) {
+      answer = scanner.nextLine().toLowerCase();
 
-    while (answer == 'y') {
-      if (this.checkPersonalCode(u)) {
-        u.setPersonalWallet(100.00);
+      if (answer.equals("y")) {
+        if (this.checkPersonalCode(u)) {
+          u.setPersonalWallet(100.00);
 
-        for (BankAccount account : accountList) {
-          for (Investment investment : account.getInvestmentList()) {
-            if (investment.getLimit() == 0 && investment.getIsFinish()) {
-              account.setPersonalBalance(investment.payment());
-              investment.setIsFinish();
+          for (BankAccount account : accountList) {
+            for (Investment investment : account.getInvestmentList()) {
+              if (investment.getLimit() == 0 && investment.getIsFinish()) {
+                account.setPersonalBalance(investment.payment());
+                investment.setIsFinish();
+              }
+              investment.setLimit();
             }
-            investment.setLimit();
           }
         }
+        day += 30;
+        System.out.println("Day: " + day);
+        System.out.println("Do you want to do another time travel (y or n)?");
+      } else if (answer.equals("n")) {
+        break; // Esci dal ciclo se l'utente inserisce 'n'
+      } else {
+        System.out.println("Invalid input. Please enter 'y' or 'n'.");
+        System.out.println(
+            "Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
       }
-      day += 30;
-      System.out.println("Day: " + day);
-      System.out.println("Do you want to do another time travel (y or n)?");
-      answer = scanner.next().charAt(0);
     }
   }
 
