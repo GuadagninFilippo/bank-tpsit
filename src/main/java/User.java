@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class User {
   private final String personalCodeUser;
