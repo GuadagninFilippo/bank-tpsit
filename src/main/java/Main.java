@@ -22,91 +22,80 @@ public class Main {
       System.out.println("2. Registration");
       System.out.println("3. Exit");
 
-      try {
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+      int choice = getValidInt(scanner); // Legge e valida l'input
 
-        switch (choice) {
-          case 1:
-            System.out.println("\nLogin:");
-            System.out.println("Insert username:");
-            String username = scanner.nextLine();
-            System.out.println("Insert password:");
-            String password = scanner.nextLine();
+      switch (choice) {
+        case 1:
+          System.out.println("\nLogin:");
+          System.out.println("Insert username:");
+          String username = scanner.nextLine();
+          System.out.println("Insert password:");
+          String password = scanner.nextLine();
 
-            int checkBank = -1;
-            while (checkBank != 0 && checkBank != 1) {
-              try {
-                System.out.println("What bank you use? (San Paolo = 0 | Generali = 1)");
-                checkBank = scanner.nextInt();
-                scanner.nextLine();
-                if (checkBank != 0 && checkBank != 1) {
-                  System.out.println("Invalid input. Please enter 0 or 1.");
-                }
-              } catch (InputMismatchException e) {
+          int checkBank = -1;
+          while (checkBank != 0 && checkBank != 1) {
+            try {
+              System.out.println("What bank you use? (San Paolo = 0 | Generali = 1)");
+              checkBank = Integer.parseInt(scanner.nextLine());
+              if (checkBank != 0 && checkBank != 1) {
                 System.out.println("Invalid input. Please enter 0 or 1.");
-                scanner.nextLine();
               }
+            } catch (NumberFormatException e) {
+              System.out.println("Invalid input. Please enter 0 or 1.");
             }
+          }
 
-            Bank selectedBank = (checkBank == 0) ? sanPaolo : generali;
+          Bank selectedBank = (checkBank == 0) ? sanPaolo : generali;
 
-            Account account = selectedBank.authenticateUser(username, password);
+          Account account = selectedBank.authenticateUser(username, password);
 
-            if (account != null) {
-              System.out.println("Login successful!");
-              gestisciOperazioni(scanner, selectedBank, account.getUser());
-            } else {
-              System.out.println(" Incorrect username or password ");
-            }
-            break;
+          if (account != null) {
+            System.out.println("Login successful!");
+            gestisciOperazioni(scanner, selectedBank, account.getUser());
+          } else {
+            System.out.println(" Incorrect username or password ");
+          }
+          break;
 
-          case 2:
-            System.out.println("\nRegistration:");
-            System.out.println("Insert username:");
-            String newUsername = scanner.nextLine();
-            System.out.println("Insert password:");
-            String newPassword = scanner.nextLine();
-            System.out.println("Insert personal code:");
-            String newPersonalCode = scanner.nextLine();
+        case 2:
+          System.out.println("\nRegistration:");
+          System.out.println("Insert username:");
+          String newUsername = scanner.nextLine();
+          System.out.println("Insert password:");
+          String newPassword = scanner.nextLine();
+          System.out.println("Insert personal code:");
+          String newPersonalCode = scanner.nextLine();
 
-            int newCheckBank = -1;
-            while (newCheckBank != 0 && newCheckBank != 1) {
-              try {
-                System.out.println(
-                    "Which bank do you want to use? (San Paolo = 0 | Generali = 1) ");
-                newCheckBank = scanner.nextInt();
-                scanner.nextLine();
-                if (newCheckBank != 0 && newCheckBank != 1) {
-                  System.out.println("Invalid input. Please enter 0 or 1.");
-                }
-              } catch (InputMismatchException e) {
+          int newCheckBank = -1;
+          while (newCheckBank != 0 && newCheckBank != 1) {
+            try {
+              System.out.println("Which bank do you want to use? (San Paolo = 0 | Generali = 1) ");
+              newCheckBank = Integer.parseInt(scanner.nextLine());
+              if (newCheckBank != 0 && newCheckBank != 1) {
                 System.out.println("Invalid input. Please enter 0 or 1.");
-                scanner.nextLine();
               }
+            } catch (NumberFormatException e) {
+              System.out.println("Invalid input. Please enter 0 or 1.");
             }
+          }
 
-            Bank newSelectedBank = (newCheckBank == 0) ? sanPaolo : generali;
+          Bank newSelectedBank = (newCheckBank == 0) ? sanPaolo : generali;
 
-            User newUser = new User(newPersonalCode, newUsername);
-            newSelectedBank.registerUser(newUsername, newPassword, newUser);
-            newSelectedBank.createAccountList(new BankAccount(newPersonalCode, newUsername));
-            System.out.println("Registration successful!");
-            break;
+          User newUser = new User(newPersonalCode, newUsername);
+          newSelectedBank.registerUser(newUsername, newPassword, newUser);
+          newSelectedBank.createAccountList(new BankAccount(newPersonalCode, newUsername));
+          System.out.println("Registration successful!");
+          break;
 
-          case 3:
-            System.out.println("program closure!");
-            sanPaolo.saveData("sanpaolo.txt");
-            generali.saveData("generali.txt");
-            scanner.close();
-            return;
+        case 3:
+          System.out.println("program closure!");
+          sanPaolo.saveData("sanpaolo.txt");
+          generali.saveData("generali.txt");
+          scanner.close();
+          return;
 
-          default:
-            System.out.println("Invalid option. ");
-        }
-      } catch (InputMismatchException e) {
-        System.out.println("Invalid input. Please enter a number. ");
-        scanner.nextLine();
+        default:
+          System.out.println("Invalid option. ");
       }
     }
   }
@@ -116,15 +105,14 @@ public class Main {
     do {
       System.out.println("\nSelect an operation:");
       System.out.println("- Deposit (code 0)");
-      System.out.println("- Whihdrawal (code 1)");
+      System.out.println("- Withdrawal (code 1)");
       System.out.println("- View wallet (code 2)");
       System.out.println("- View personal balance (code 3)");
       System.out.println("- time progress (code 4)");
       System.out.println("- Create an investment (code 5)");
       System.out.println("- View your investment list (code 6)");
       System.out.println("- View transaction history (code 7)");
-      int operation = scanner.nextInt();
-      scanner.nextLine();
+      int operation = getValidInt(scanner); // Legge e valida l'input
 
       switch (operation) {
         case 0:
@@ -134,6 +122,7 @@ public class Main {
         case 1:
           System.out.println("Withdrawal operation.");
           user.withdraw(selectedBank);
+          askContinue(scanner); // Chiede se continuare dopo il prelievo
           break;
         case 2:
           System.out.println("Looking at the wallet.");
@@ -171,6 +160,9 @@ public class Main {
       do {
         System.out.println("Do you want to perform another operation? (y/n) ");
         answ = scanner.nextLine();
+        if (answ.equalsIgnoreCase("n")) {
+          break;
+        }
         if (!answ.equalsIgnoreCase("y") && !answ.equalsIgnoreCase("n")) {
           System.out.println("Invalid input. Please enter 'y' or 'n'.");
         }
@@ -181,7 +173,7 @@ public class Main {
   private static void createInvestiment(Scanner scanner, Bank selectedBank, User user) {
     try {
       System.out.println("Enter the investment amount: ");
-      double importo = scanner.nextDouble();
+      double importo = Double.parseDouble(scanner.nextLine());
 
       if (importo <= 0) {
         System.out.println("Invalid investment amount. Please enter a positive value.");
@@ -190,8 +182,7 @@ public class Main {
 
       System.out.println(
           "Enter the investment term (0 = 12 months, 1 = 60 months, 2 = 120 months): ");
-      int durata = scanner.nextInt();
-      scanner.nextLine();
+      int durata = Integer.parseInt(scanner.nextLine());
 
       if (durata < 0 || durata > 2) {
         System.out.println("Invalid investment term. Please enter 0, 1, or 2.");
@@ -199,8 +190,7 @@ public class Main {
       }
 
       System.out.println("Enter your investment risk (0 = low, 1 = medium, 2 = high): ");
-      int rischio = scanner.nextInt();
-      scanner.nextLine();
+      int rischio = Integer.parseInt(scanner.nextLine());
 
       if (rischio < 0 || rischio > 2) {
         System.out.println("Invalid investment risk. Please enter 0, 1, or 2.");
@@ -218,9 +208,8 @@ public class Main {
       }
       System.out.println("Account not found for the user.");
 
-    } catch (InputMismatchException e) {
+    } catch (NumberFormatException e) {
       System.out.println("Invalid input. Please enter a numeric value.");
-      scanner.nextLine(); // Consuma l'input errato e la newline
     }
   }
 
@@ -229,6 +218,28 @@ public class Main {
       if (account.getPersonalCodeBank().equals(user.getPersonalCodeUser())) {
         account.printInvestmentStatus();
         break;
+      }
+    }
+  }
+
+  private static int getValidInt(Scanner scanner) {
+    while (true) {
+      try {
+        return Integer.parseInt(scanner.nextLine());
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid input. Please enter a number.");
+      }
+    }
+  }
+
+  private static void askContinue(Scanner scanner) {
+    while (true) {
+      System.out.println("Do you want to perform another operation? (y/n) ");
+      String choice = scanner.nextLine().toLowerCase();
+      if (choice.equals("y") || choice.equals("n")) {
+        break;
+      } else {
+        System.out.println("Invalid input. Please enter 'y' or 'n'.");
       }
     }
   }

@@ -69,20 +69,22 @@ public class User {
         System.out.println("In your bank account: " + userAccount.getPersonalBalance());
         System.out.println("How much money do you want to withdraw?");
 
-        try {
-          double money = scanner.nextDouble();
+        while (true) { // ciclo per gestire input non validi
+          try {
+            double money = Double.parseDouble(scanner.nextLine());
 
-          if (money <= 0) {
-            System.out.println("Invalid amount. Please enter a positive value.");
-          } else if (money > userAccount.getPersonalBalance()) {
-            System.out.println("You have less money in your personal balance");
-          } else {
-            personalWallet += money;
-            userAccount.withdraw(money);
+            if (money <= 0) {
+              System.out.println("Invalid amount. Please enter a positive value.");
+            } else if (money > userAccount.getPersonalBalance()) {
+              System.out.println("You have less money in your personal balance");
+            } else {
+              userAccount.withdraw(money);
+              personalWallet += money;
+              break;
+            }
+          } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a numeric value.");
           }
-        } catch (InputMismatchException e) {
-          System.out.println("Invalid input. Please enter a numeric value.");
-          scanner.next(); // Pulisce l'input errato dallo scanner
         }
       }
     }

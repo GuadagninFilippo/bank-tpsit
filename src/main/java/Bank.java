@@ -133,8 +133,7 @@ public class Bank {
     try (BufferedReader reader = new BufferedReader(new FileReader(nomeFile))) {
       String line;
       User currentUser = null;
-      SimpleDateFormat formatter =
-          new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); // Formato della data
+      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
       while ((line = reader.readLine()) != null) {
         String[] parts = line.split(",");
@@ -146,26 +145,33 @@ public class Bank {
           String usernameUser = parts[1];
           String usernameAccount = parts[2];
           String password = parts[3];
+
           User user = new User(personalCode, usernameUser);
           bank.registerUser(usernameAccount, password, user);
           currentUser = user;
+
         } else if (parts.length >= 3 && parts[0].equals("Account")) {
+
           if (currentUser != null) {
             String personalCode = parts[1];
             double personalBalance = Double.parseDouble(parts[2]);
+
             BankAccount bankAccount = new BankAccount(personalCode, currentUser.getUsername());
             bankAccount.setPersonalBalance(personalBalance);
             bank.accountList.add(bankAccount);
+
           } else {
             System.err.println("Errore: Riga 'Account' trovata prima di un utente valido.");
           }
         } else if (parts.length >= 4 && parts[0].equals("Transaction")) {
           try {
-            Date date = formatter.parse(parts[1]); // Analizza la stringa di data
+            Date date = formatter.parse(parts[1]); // analizza la stringa di data
             double amount = Double.parseDouble(parts[2]);
             String type = parts[3];
             String description = parts[4];
+
             Transaction transaction = new Transaction(date, amount, type, description);
+
             for (BankAccount account : bank.accountList) {
               if (account.getPersonalCodeBank().equals(currentUser.getPersonalCodeUser())) {
                 account.getTransactionHistory().add(transaction);
@@ -179,7 +185,9 @@ public class Bank {
           double qInvest = Double.parseDouble(parts[1]);
           int duration = Integer.parseInt(parts[2]);
           int risk = Integer.parseInt(parts[3]);
+
           Investment investment = new Investment(qInvest, duration, risk);
+
           for (BankAccount account : bank.accountList) {
             if (account.getPersonalCodeBank().equals(currentUser.getPersonalCodeUser())) {
               account.getInvestmentList().add(investment);
