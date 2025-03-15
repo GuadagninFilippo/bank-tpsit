@@ -37,8 +37,7 @@ public class Bank {
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Day: " + day);
-    System.out.println(
-        "Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
+    System.out.println("Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
 
     String answer;
     while (true) {
@@ -51,8 +50,11 @@ public class Bank {
           for (BankAccount account : accountList) {
             for (Investment investment : account.getInvestmentList()) {
               if (investment.getLimit() == 0 && investment.getIsFinish()) {
-                account.setPersonalBalance(investment.payment());
+                double investmentResult = investment.payment(); // Ottieni il risultato dell'investimento
+                account.setPersonalBalance(account.getPersonalBalance() + investmentResult);
                 investment.setIsFinish();
+                Date currentDate = new Date();
+                Transaction transaction = new Transaction(currentDate, investmentResult, "Investment Payment", "Investment completed");
               }
               investment.setLimit();
             }
@@ -65,12 +67,10 @@ public class Bank {
         break; // Esci dal ciclo se l'utente inserisce 'n'
       } else {
         System.out.println("Invalid input. Please enter 'y' or 'n'.");
-        System.out.println(
-            "Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
+        System.out.println("Do you want to do a time travel (y or n)? Every time travel is 30 days long.");
       }
     }
   }
-
   public void registerUser(String username, String password, User user) {
     accountUserList.add(new Account(username, password, user));
   }
