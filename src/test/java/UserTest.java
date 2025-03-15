@@ -91,8 +91,14 @@ public class UserTest {
     double withdrawValue = -10.0;
     user.withdraw(bank, withdrawValue);
 
-    assertEquals(100.0, user.getPersonalWallet(), "Wallet should not change due to negative withdraw amount.");
-    assertEquals(100.0, account.getPersonalBalance(), "Balance should not change due to negative withdraw amount.");
+    assertEquals(
+        100.0,
+        user.getPersonalWallet(),
+        "Wallet should not change due to negative withdraw amount.");
+    assertEquals(
+        100.0,
+        account.getPersonalBalance(),
+        "Balance should not change due to negative withdraw amount.");
   }
 
   @Test
@@ -108,8 +114,12 @@ public class UserTest {
     double withdrawValue = 0.0;
     user.withdraw(bank, withdrawValue);
 
-    assertEquals(100.0, user.getPersonalWallet(), "Wallet should not change due to zero withdraw amount.");
-    assertEquals(100.0, account.getPersonalBalance(), "Balance should not change due to zero withdraw amount.");
+    assertEquals(
+        100.0, user.getPersonalWallet(), "Wallet should not change due to zero withdraw amount.");
+    assertEquals(
+        100.0,
+        account.getPersonalBalance(),
+        "Balance should not change due to zero withdraw amount.");
   }
 
   @Test
@@ -125,7 +135,9 @@ public class UserTest {
     double withdrawValue = 100.0;
     user.withdraw(bank, withdrawValue);
 
-    assertEquals(100.0, user.getPersonalWallet(), "Wallet should not change due to insufficient funds.");
-    assertEquals(50.0, account.getPersonalBalance(), "Balance should not change due to insufficient funds.");
+    assertEquals(
+        100.0, user.getPersonalWallet(), "Wallet should not change due to insufficient funds.");
+    assertEquals(
+        50.0, account.getPersonalBalance(), "Balance should not change due to insufficient funds.");
   }
 }
