@@ -116,11 +116,11 @@ public class Main {
       switch (operation) {
         case 0:
           System.out.println("Deposit operation.");
-          user.deposit(selectedBank);
+          user.deposit(selectedBank, null);
           break;
         case 1:
           System.out.println("Withdrawal operation.");
-          user.withdraw(selectedBank);
+          user.withdraw(selectedBank, null);
           askContinue(scanner); // Chiede se continuare dopo il prelievo
           break;
         case 2:
