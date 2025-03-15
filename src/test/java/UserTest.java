@@ -30,7 +30,6 @@ public class UserTest {
     BankAccount account = new BankAccount("001", "testUser");
     bank.createAccountList(account);
 
-    // Wallet parte da 100, quindi non è necessario impostarlo a 200 qui
     account.setPersonalBalance(0.0);
 
     double depositAmount = -10.0;
@@ -50,7 +49,6 @@ public class UserTest {
     BankAccount account = new BankAccount("001", "testUser");
     bank.createAccountList(account);
 
-    // Wallet parte da 100, quindi non è necessario impostarlo a 200 qui
     account.setPersonalBalance(0.0);
 
     double depositAmount = 0.0;
