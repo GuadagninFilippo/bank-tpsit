@@ -31,6 +31,40 @@ public class BankAccount implements Serializable {
     return personalBalance;
   }
 
+  public boolean invest(double amount, String duration, String risk) {
+    if (amount <= 0 || amount > personalBalance) {
+      return false; //  fallito
+    }
+
+    int durationValue = 0;
+    if (duration.equalsIgnoreCase("Short")) {
+      durationValue = 0;
+    } else if (duration.equalsIgnoreCase("Medium")) {
+      durationValue = 1;
+    } else if (duration.equalsIgnoreCase("Long")) {
+      durationValue = 2;
+    } else {
+      return false; //  durata non valida
+    }
+
+    int riskValue = 0;
+    if (risk.equalsIgnoreCase("Low")) {
+      riskValue = 0;
+    } else if (risk.equalsIgnoreCase("Medium")) {
+      riskValue = 1;
+    } else if (risk.equalsIgnoreCase("High")) {
+      riskValue = 2;
+    } else {
+      return false; // rischio non valido
+    }
+
+    Investment investment = new Investment(amount, durationValue, riskValue);
+    double result = investment.payment();
+    personalBalance = personalBalance - amount + result;
+
+    return true; // ok
+  }
+
   public void createInvestmentList(Investment i) {
     this.setCheckForInvestmentList(i);
     if (this.checkForInvestmentList) {
