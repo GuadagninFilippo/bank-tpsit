@@ -51,8 +51,7 @@ public class Bank {
           for (BankAccount account : accountList) {
             for (Investment investment : account.getInvestmentList()) {
               if (investment.getLimit() == 0 && investment.getIsFinish()) {
-                double investmentResult =
-                    investment.payment(); // Ottieni il risultato dell'investimento
+                double investmentResult = investment.payment(); // risultato dell'investimento
                 account.setPersonalBalance(account.getPersonalBalance() + investmentResult);
                 investment.setIsFinish();
                 Date currentDate = new Date();
@@ -161,7 +160,7 @@ public class Bank {
             bank.accountList.add(bankAccount);
 
           } else {
-            System.err.println("Errore: Riga 'Account' trovata prima di un utente valido.");
+            System.err.println("Error: 'Account' line found before valid user.");
           }
         } else if (parts.length >= 4 && parts[0].equals("Transaction")) {
           try {
@@ -179,7 +178,7 @@ public class Bank {
               }
             }
           } catch (ParseException e) {
-            System.err.println("Errore durante l'analisi della data: " + e.getMessage());
+            System.err.println("Error parsing data:" + e.getMessage());
           }
         } else if (parts.length >= 3 && parts[0].equals("Investment")) {
           double qInvest = Double.parseDouble(parts[1]);
@@ -196,7 +195,7 @@ public class Bank {
           }
         }
       }
-      System.out.println("Dati caricati con successo.");
+      System.out.println("Data saved successfully.");
       return bank;
     } catch (IOException e) {
       System.err.println("Error loading data:" + e.getMessage());

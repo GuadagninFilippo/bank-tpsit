@@ -109,11 +109,11 @@ public class User {
         if (amount > 0 && amount <= userAccount.getPersonalBalance()) {
           userAccount.withdraw(amount);
           personalWallet += amount;
-          return true; // Prelievo riuscito
+          return true; // riuscito
         }
       }
     }
-    return false; // Prelievo fallito
+    return false; // fallito
   }
 
   public void lookWallet() {

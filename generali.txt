@@ -1,5 +1,20 @@
 1,filo,filo,1234
-Account,1,100.0
+Account,1,238.0
+Transaction,14/03/2025 23:55:40,100.0,Deposit,Deposit of 100.0 Old balance: 100.0 New balance: 200.0
+Transaction,14/03/2025 23:55:40,100.0,Deposit,Deposit of 100.0 Old balance: 100.0 New balance: 200.0
+Transaction,15/03/2025 00:00:18,-10.0,Withdrawal,Withdrawal of 10.0 Old balance: 100.0 New balance: 90.0
+Transaction,15/03/2025 00:00:50,12.0,Deposit,Deposit of 12.0 Old balance: 90.0 New balance: 102.0
+Transaction,15/03/2025 00:01:54,86.0,Deposit,Deposit of 86.0 Old balance: 102.0 New balance: 188.0
+Transaction,15/03/2025 00:02:57,75.0,Deposit,Deposit of 75.0 Old balance: 188.0 New balance: 263.0
+Transaction,15/03/2025 00:03:12,-25.0,Withdrawal,Withdrawal of 25.0 Old balance: 263.0 New balance: 238.0
 07,mirko,mirko,pv
-Account,07,50.0
+Account,07,112.78
 Transaction,12/03/2025 15:34:35,50.0,Deposit,Deposit of 50.0 Old balance: 0.0 New balance: 50.0
+Transaction,14/03/2025 23:52:25,67.78,Deposit,Deposit of 67.78 Old balance: 50.0 New balance: 117.78
+Transaction,15/03/2025 00:04:27,12.0,Deposit,Deposit of 12.0 Old balance: 117.78 New balance: 129.78
+Transaction,15/03/2025 00:04:53,-34.0,Withdrawal,Withdrawal of 34.0 Old balance: 129.78 New balance: 95.78
+Transaction,15/03/2025 01:03:03,100.0,Deposit,Deposit of 100.0 Old balance: 95.78 New balance: 195.78
+Transaction,15/03/2025 01:05:30,-5.0,Withdrawal,Withdrawal of 5.0 Old balance: 95.78 New balance: 90.78
+Transaction,15/03/2025 11:13:11,12.0,Deposit,Deposit of 12.0 Old balance: 90.78 New balance: 102.78
+Transaction,15/03/2025 14:50:25,10.0,Deposit,Deposit of 10.0 Old balance: 102.78 New balance: 112.78
+

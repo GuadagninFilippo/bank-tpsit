@@ -111,7 +111,7 @@ public class Main {
       System.out.println("- Create an investment (code 5)");
       System.out.println("- View your investment list (code 6)");
       System.out.println("- View transaction history (code 7)");
-      int operation = getValidInt(scanner); // Legge e valida l'input
+      int operation = getValidInt(scanner); // legge l'input
 
       switch (operation) {
         case 0:
@@ -121,7 +121,7 @@ public class Main {
         case 1:
           System.out.println("Withdrawal operation.");
           user.withdraw(selectedBank, null);
-          askContinue(scanner); // Chiede se continuare dopo il prelievo
+          askContinue(scanner); // chiede se continuare dopo il prelievo
           break;
         case 2:
           System.out.println("Looking at the wallet.");
